@@ -1,5 +1,5 @@
 ﻿using PokemonReviewApp.Data;
-using PokemonReviewApp.Interface;
+using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
 
 namespace PokemonReviewApp.Repository
