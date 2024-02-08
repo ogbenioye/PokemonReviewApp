@@ -40,5 +40,36 @@ namespace PokemonReviewApp.Repository
         {
             return _context.Pokemons.Any(p => p.Id == pokeId);
         }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            var owner = _context.Owners.Where(x => x.Id == ownerId).FirstOrDefault();
+            var category = _context.Categories.Where(x => x.Id == categoryId).FirstOrDefault();
+
+            PokemonOwner pokemonOwner = new PokemonOwner()
+            {
+                Owner = owner,
+                Pokemon = pokemon,
+            };
+
+            _context.Add(pokemonOwner);
+
+            PokemonCategory pokemonCategory = new PokemonCategory()
+            {
+                Category = category,
+                Pokemon = pokemon
+            };
+
+            _context.Add(pokemonCategory);
+
+            _context.Add(pokemon);
+            return Save();
+        }
     }
 }
